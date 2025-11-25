@@ -13,7 +13,12 @@ public class PongGame extends JPanel implements MouseMotionListener {
     private int playerScore;
     private int aiScore;
     private Ball ball;
+    
     // step 1 add any other private variables you may need to play the game.
+    private Paddle userPaddle;
+    private Wall wall;
+    private SlowDown slowDown;
+    private Speedup speedUp;
 
     public PongGame() {
 
@@ -28,6 +33,10 @@ public class PongGame extends JPanel implements MouseMotionListener {
         addMouseMotionListener(this);
         ball = new Ball(200, 200, 10, 3, Color.RED, 10);
 
+        userPaddle = new Paddle(20, 100, 50, 9, Color.BLUE);
+        wall = new Wall (300, 250, 80, 60, Color.PINK);
+        slowDown = new SlowDown (450, 350, 70, 20);
+        speedUp = new Speedup (200, 80, 70, 20);
         //create any other objects necessary to play the game.
 
     }
@@ -55,8 +64,12 @@ public class PongGame extends JPanel implements MouseMotionListener {
         g.drawString("The Score is User:" + playerScore + " vs Ai:" + aiScore, 240, 20);
         ball.draw(g);
         aiPaddle.draw(g);
+        userPaddle.draw(g);
+        wall.draw(g);
+        speedUp.draw(g);
+        slowDown.draw(g);
         
-        //call the "draw" function of any visual component you'd like to show up on the screen.
+        //call the "draw" function of any visual component you'd like to show up on the screen
 
     }
 
@@ -65,13 +78,23 @@ public class PongGame extends JPanel implements MouseMotionListener {
     // postcondition: one frame of the game is "played"
     public void gameLogic() {
         //add commands here to make the game play propperly
-        
+        ball.moveBall();
         aiPaddle.moveY(ball.getY());
-
+        userPaddle.moveY(userMouseY);
         if (aiPaddle.isTouching(ball)) {
            ball.reverseX();
         }
- 
+        ball.bounceOffwalls(0,450);
+        if (ball.getX()== 0 || ball.getX() == 640)
+        {
+            ball.setX(200);
+            ball.sety(200);
+            
+
+        }
+
+        if(isTouching(ball))
+            ball.reverseX();
         pointScored();
 
     }
@@ -83,7 +106,10 @@ public class PongGame extends JPanel implements MouseMotionListener {
     // pixels) and the ai scores
     // if the ball goes off the left edge (0)
     public void pointScored() {
-
+        if (ball.getX()== 0 )
+            aiScore+=1;
+        else if (ball.getX()==640)
+            playerScore+=1;
     }
 
     // you do not need to edit the below methods, but please do not remove them as
