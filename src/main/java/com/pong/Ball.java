@@ -90,7 +90,8 @@ public Ball(int x, int y, int changeX, int changeY, Color color, int size) {
 
 
 //precondition: none
-//postcondition: gets the changeX of the ball equal to the inputed speed
+//postcondition: gets the 
+// X of the ball equal to the inputed speed
 public double getChangeX() {
 	return changeX;
 }
@@ -108,7 +109,7 @@ public void setChangeX(double x) {
 //precondition: y is a non-null number, and when increasing or decreasing the changey don't change by a whole number. Use smaller decimals 
 //postcondition: sets the changeY of the ball equal to the inputed y
 public void setChangey(double y) {
-	this.changeY=x;
+	this.changeY=y;
 }
   
 

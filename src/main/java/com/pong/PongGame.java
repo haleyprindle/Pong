@@ -1,3 +1,10 @@
+//
+//  Class author:  Haley Prindle
+//  Date created:  11/21/25
+//  General description: Creates a game of Pong for the user to play with an AI opponent.
+//
+
+
 package com.pong;
 
 import javax.swing.*;
@@ -31,7 +38,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
         aiScore.setVisible(true);
         userMouseY = 0;
         addMouseMotionListener(this);
-        ball = new Ball(200, 200, 10, 3, Color.RED, 10);
+        ball = new Ball(320, 200, 10, 3, Color.RED, 10);
 
         userPaddle = new Paddle(20, 100, 50, 9, Color.BLUE);
         wall = new Wall (300, 250, 80, 60, Color.PINK);
@@ -84,19 +91,37 @@ public class PongGame extends JPanel implements MouseMotionListener {
         if (aiPaddle.isTouching(ball)) {
            ball.reverseX();
         }
+        if (userPaddle.isTouching(ball)) {
+           ball.reverseX();
+        }
         ball.bounceOffwalls(0,450);
-        if (ball.getX()== 0 || ball.getX() == 640)
+        
+        pointScored();
+       
+
+        if(wall.isTouching(ball))
+            ball.reverseX();
+
+        if(slowDown.isTouching(ball))
         {
-            ball.setX(200);
-            ball.sety(200);
+           ball.setChangeX(ball.getChangeX()-.2);
+            ball.setChangey(ball.getChangeY()-.2); 
+        }
+            
+        if(speedUp.isTouching(ball)){
+
+            ball.setChangeX(ball.getChangeX()+.2);
+            ball.setChangey(ball.getChangeY()+.2);
+        }
+         
+          
+        
+
+
+
             
 
-        }
-
-        if(isTouching(ball))
-            ball.reverseX();
-        pointScored();
-
+        
     }
 
     // precondition: ball is a non-null object that exists in the world
@@ -106,6 +131,15 @@ public class PongGame extends JPanel implements MouseMotionListener {
     // pixels) and the ai scores
     // if the ball goes off the left edge (0)
     public void pointScored() {
+        
+          
+        if (ball.getX()<= 0 || ball.getX() >= 640)
+        {
+            ball.setX(320);
+            ball.sety(200);
+            
+
+        }
         if (ball.getX()== 0 )
             aiScore+=1;
         else if (ball.getX()==640)
