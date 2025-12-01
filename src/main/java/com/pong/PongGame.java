@@ -104,14 +104,14 @@ public class PongGame extends JPanel implements MouseMotionListener {
 
         if(slowDown.isTouching(ball))
         {
-           ball.setChangeX(ball.getChangeX()-.2);
-            ball.setChangey(ball.getChangeY()-.2); 
+           ball.setChangeX(ball.getChangeX()-.1);
+            ball.setChangey(ball.getChangeY()-.1); 
         }
             
         if(speedUp.isTouching(ball)){
 
-            ball.setChangeX(ball.getChangeX()+.2);
-            ball.setChangey(ball.getChangeY()+.2);
+            ball.setChangeX(ball.getChangeX()+.1);
+            ball.setChangey(ball.getChangeY()+.1);
         }
          
           
@@ -132,7 +132,10 @@ public class PongGame extends JPanel implements MouseMotionListener {
     // if the ball goes off the left edge (0)
     public void pointScored() {
         
-          
+        if (ball.getX()<= 0 )
+            aiScore+=1;
+        else if (ball.getX()==640)
+            playerScore+=1;  
         if (ball.getX()<= 0 || ball.getX() >= 640)
         {
             ball.setX(320);
@@ -140,10 +143,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
             
 
         }
-        if (ball.getX()== 0 )
-            aiScore+=1;
-        else if (ball.getX()==640)
-            playerScore+=1;
+        
     }
 
     // you do not need to edit the below methods, but please do not remove them as
