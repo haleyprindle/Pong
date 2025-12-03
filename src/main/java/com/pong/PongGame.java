@@ -42,7 +42,7 @@ public class PongGame extends JPanel implements MouseMotionListener {
 
         userPaddle = new Paddle(20, 100, 50, 9, Color.BLUE);
         wall = new Wall (300, 250, 80, 60, Color.PINK);
-        slowDown = new SlowDown (450, 350, 70, 20);
+        slowDown = new SlowDown (450,350, 70, 20);
         speedUp = new Speedup (200, 80, 70, 20);
         //create any other objects necessary to play the game.
 
@@ -105,27 +105,27 @@ public class PongGame extends JPanel implements MouseMotionListener {
         if(slowDown.isTouching(ball))
         {
             if(ball.getChangeX()>0){
-           ball.setChangeX(ball.getChangeX()-.1);
-            ball.setChangey(ball.getChangeY()-.1); 
+           ball.setChangeX(ball.getChangeX()-.2);
+            ball.setChangey(ball.getChangeY()-.2); 
             }
             else
             {
-              ball.setChangeX(ball.getChangeX()+.1);
-            ball.setChangey(ball.getChangeY()+.1);  
+              ball.setChangeX(ball.getChangeX()+.2);
+            ball.setChangey(ball.getChangeY()+.2);  
             }
         }
             
         if(speedUp.isTouching(ball)){
 
            if(ball.getChangeX()>0){
-            ball.setChangeX(ball.getChangeX()+.2);
-            ball.setChangey(ball.getChangeY()+.2);  
+            ball.setChangeX(ball.getChangeX()+.3);
+            ball.setChangey(ball.getChangeY()+.3);  
            
             }
             else
             {
-              ball.setChangeX(ball.getChangeX()-.2);
-            ball.setChangey(ball.getChangeY()-.2); 
+              ball.setChangeX(ball.getChangeX()-.3);
+            ball.setChangey(ball.getChangeY()-.3); 
             }
         }
          
